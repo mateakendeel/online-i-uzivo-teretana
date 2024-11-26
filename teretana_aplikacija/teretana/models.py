@@ -14,3 +14,13 @@ class User(models.Model):
 
     def __str__(self):
         return self.username
+
+class Trening(models.Model):
+    name=models.CharField(max_length=100)
+    trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    date=models.DateTimeField()
+
+def_str_(self):
+return f"{self.name}
+with{self.trainer.name} for {self.user.username}
