@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Trainer(models.Model):
     name = models.CharField(max_length=100)
@@ -7,14 +9,6 @@ class Trainer(models.Model):
     def __str__(self):
         return self.name
 
-class User(models.Model):
-    username = models.CharField(max_length=100, unique=True)
-    email = models.EmailField(unique=True)
-    password = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.username
-
 class Trening(models.Model):
     name=models.CharField(max_length=100)
     trainer=models.ForeignKey(Trainer, on_delete=models.CASCADE)
@@ -22,8 +16,8 @@ class Trening(models.Model):
     date=models.DateTimeField()
     
     def __str__(self):
-        return f"{self.name}
-        with{self.trainer.name} for {self.user.username}"
+        return f"{self.name} with {self.trainer.name} for {self.user.username}"
+
     
 class Clanstvo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -51,3 +45,18 @@ class PlanTreninga(models.Model):
 
     def _str_(self):
         return f"{self.exercise.name} in {self.workout_plan.title}"
+    
+class WorkoutPlan(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+class Exercise(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
