@@ -8,6 +8,29 @@ class Trainer(models.Model):
 
     def __str__(self):
         return self.name
+    
+class WorkoutPlan(models.Model):
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title
+
+class Exercise(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+class PlanTreninga(models.Model):
+    workout_plan = models.ForeignKey(WorkoutPlan, on_delete=models.CASCADE, related_name='exercises')
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    repetitions = models.IntegerField()
+    sets = models.IntegerField()
+    
+    def __str__(self):
+        return f"{self.exercise.name} in {self.workout_plan.title}"
 
 class Trening(models.Model):
     name=models.CharField(max_length=100)
@@ -36,27 +59,3 @@ class Vjezba(models.Model):
 
     def __str__(self):
         return self.name
-
-class PlanTreninga(models.Model):
-    workout_plan = models.ForeignKey(WorkoutPlan, on_delete=models.CASCADE, related_name='exercises')
-    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
-    repetitions = models.IntegerField()
-    sets = models.IntegerField()
-
-    def _str_(self):
-        return f"{self.exercise.name} in {self.workout_plan.title}"
-    
-class WorkoutPlan(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.title
-
-class Exercise(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-
-    def __str__(self):
-        return self.name
-
