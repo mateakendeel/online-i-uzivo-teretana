@@ -23,3 +23,6 @@ def is_admin(user):
 @user_passes_test(is_admin)
 def admin_dashboard(request):
     return render(request, 'admin_dashboard.html')
+
+def home(request):
+    return render(request, 'home.html') 
