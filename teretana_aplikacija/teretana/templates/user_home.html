@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        {% block content %}
-  <h1>Welcome, {{ user.username }}!</h1>
-  <a href="{% url 'logout' %}">Logout</a>
-{% endblock %}
-    </body>
+<body>
+    {% block content %}
+    <h1>Welcome, {{ user.username }}!</h1>
+
+    <h2>Vaši treninzi</h2>
+    <ul>
+        {% for trening in trenings %}
+        <li>
+            <a href="{% url 'trening_detail' trening.id %}">{{ trening.name }}</a>
+            - {{ trening.trainer.name }} ({{ trening.date }})
+        </li>
+        {% empty %}
+        <p>Nemate zakazanih treninga.</p>
+        {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'trening_list' %}">Pregled svih treninga</a></p> <!-- Dodajte ovdje -->
+
+    <a href="{% url 'logout' %}">Logout</a>
+    {% endblock %}
+</body>
 </html>

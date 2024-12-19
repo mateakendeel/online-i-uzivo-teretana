@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from teretana import views
+from teretana.views import TreningListView, TreningDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +28,6 @@ urlpatterns = [
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('', views.home, name='home'),
     path('user-home/', views.user_home, name='user_home'),
-
+    path('trenings/', TreningListView.as_view(), name='trening_list'),
+    path('trenings/<int:pk>/', TreningDetailView.as_view(), name='trening_detail'),
 ]

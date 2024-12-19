@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate, login
-
+from django.views.generic import ListView, DetailView
+from django.db.models import Q 
+from teretana.models import Trening
 
 from django.contrib.auth import authenticate, login
 
@@ -35,7 +37,30 @@ def admin_dashboard(request):
 
 @login_required
 def user_home(request):
-    return render(request, 'user_home.html')
-
+    trenings = Trening.objects.filter(user=request.user)
+    return render(request, 'user_home.html', {'trenings': trenings})
 def home(request):
     return render(request, 'home.html') 
+
+class TreningListView(ListView):
+    model = Trening
+    template_name = 'trening_list.html'
+    context_object_name = 'trenings'
+    paginate_by = 10 
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        query = self.request.GET.get('q')
+        if query:
+            queryset = queryset.filter(
+                Q(name__icontains=query) |
+                Q(trainer__name__icontains=query) |
+                Q(user__username__icontains=query)
+            )
+        return queryset
+
+
+class TreningDetailView(DetailView):
+    model = Trening
+    template_name = 'trening_detail.html'
+    context_object_name = 'trening'

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Popis Treninga</h2>
+    <form method="get">
+        <input type="text" name="q" placeholder="Pretraži..." value="{{ request.GET.q }}">
+        <button type="submit">Pretraži</button>
+    </form>
+    <ul>
+        {% for trening in trenings %}
+        <li>
+            <a href="{% url 'trening_detail' trening.id %}">{{ trening.name }}</a>
+            - {{ trening.trainer.name }} ({{ trening.date }})
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

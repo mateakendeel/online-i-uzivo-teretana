@@ -1,0 +1,20 @@
+[
+    {
+        "model": "teretana.trainer",
+        "pk": 1,
+        "fields": {
+            "name": "Ivan Horvat",
+            "email": "ivan.horvat@example.com"
+        }
+    },
+    {
+        "model": "teretana.trening",
+        "pk": 1,
+        "fields": {
+            "name": "Jutarnji trening",
+            "trainer": 1,
+            "user": 1,
+            "date": "2024-12-20T08:00:00Z"
+        }
+    }
+]
