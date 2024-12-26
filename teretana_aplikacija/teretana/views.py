@@ -6,7 +6,9 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth import authenticate, login
 from django.views.generic import ListView, DetailView
 from django.db.models import Q 
-from teretana.models import Trening
+from django.apps import apps
+from django.db import models
+from .models import Trainer, WorkoutPlan, Exercise, PlanTreninga, Trening, Clanstvo, Vjezba
 
 from django.contrib.auth import authenticate, login
 
@@ -42,25 +44,28 @@ def user_home(request):
 def home(request):
     return render(request, 'home.html') 
 
-class TreningListView(ListView):
-    model = Trening
-    template_name = 'trening_list.html'
-    context_object_name = 'trenings'
-    paginate_by = 10 
+class GenericListView(ListView):
+    template_name = 'generic_list.html'
+    context_object_name = 'objects'
+    paginate_by = 10
 
     def get_queryset(self):
+        model_name = self.kwargs['model_name']
+        self.model = apps.get_model(app_label='teretana', model_name=model_name)
         queryset = super().get_queryset()
         query = self.request.GET.get('q')
         if query:
-            queryset = queryset.filter(
-                Q(name__icontains=query) |
-                Q(trainer__name__icontains=query) |
-                Q(user__username__icontains=query)
-            )
+            fields = [field.name for field in self.model._meta.fields if isinstance(field, (models.CharField, models.TextField))]
+            query_filter = Q()
+            for field in fields:
+                query_filter |= Q(**{f"{field}__icontains": query})
+            queryset = queryset.filter(query_filter)
         return queryset
 
+class GenericDetailView(DetailView):
+    template_name = 'generic_detail.html'
 
-class TreningDetailView(DetailView):
-    model = Trening
-    template_name = 'trening_detail.html'
-    context_object_name = 'trening'
+    def get_object(self, queryset=None):
+        model_name = self.kwargs['model_name']
+        self.model = apps.get_model(app_label='teretana', model_name=model_name)
+        return super().get_object(queryset)

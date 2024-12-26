@@ -1,0 +1,6 @@
+<h2>Detalji {{ object }}</h2>
+<ul>
+    {% for field in object._meta.fields %}
+    <li>{{ field.verbose_name }}: {{ field.value_from_object(object) }}</li>
+    {% endfor %}
+</ul>

@@ -8,13 +8,59 @@
         }
     },
     {
+        "model": "teretana.workoutplan",
+        "pk": 1,
+        "fields": {
+            "title": "Plan A",
+            "description": "Opis plana A"
+        }
+    },
+    {
+        "model": "teretana.exercise",
+        "pk": 1,
+        "fields": {
+            "name": "Push Up",
+            "description": "Standard push-up exercise"
+        }
+    },
+    {
+        "model": "teretana.plantreninga",
+        "pk": 1,
+        "fields": {
+            "workout_plan": 1,
+            "exercise": 1,
+            "repetitions": 10,
+            "sets": 3
+        }
+    },
+    {
         "model": "teretana.trening",
         "pk": 1,
         "fields": {
-            "name": "Jutarnji trening",
+            "name": "Morning Session",
             "trainer": 1,
             "user": 1,
-            "date": "2024-12-20T08:00:00Z"
+            "date": "2024-12-26T08:00:00Z"
+        }
+    },
+    {
+        "model": "teretana.clanstvo",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "start_date": "2024-01-01",
+            "end_date": "2024-12-31",
+            "active": true
+        }
+    },
+    {
+        "model": "teretana.vjezba",
+        "pk": 1,
+        "fields": {
+            "name": "Jogging",
+            "description": "Light jogging for warm-up",
+            "duration": 15,
+            "calories_burned": 120
         }
     }
 ]

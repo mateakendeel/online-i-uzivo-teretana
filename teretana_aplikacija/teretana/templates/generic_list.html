@@ -1,0 +1,10 @@
+<h2>Popis {{ model_name }}</h2>
+<form method="get">
+    <input type="text" name="q" placeholder="Pretraži..." value="{{ request.GET.q }}">
+    <button type="submit">Pretraži</button>
+</form>
+<ul>
+    {% for obj in objects %}
+    <li><a href="{% url 'generic_detail' model_name=model_name pk=obj.id %}">{{ obj }}</a></li>
+    {% endfor %}
+</ul>
