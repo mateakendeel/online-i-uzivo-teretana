@@ -43,6 +43,28 @@ def user_home(request):
 def home(request):
     return render(request, 'home.html') 
 
+@login_required
+def user_home(request):
+    trainers = Trainer.objects.all()
+    workout_plans = WorkoutPlan.objects.all()
+    exercises = Exercise.objects.all()
+    plan_treninga = PlanTreninga.objects.all()
+    trenings = Trening.objects.filter(user=request.user)
+    clanstva = Clanstvo.objects.filter(user=request.user)
+    vjezbe = Vjezba.objects.all()
+
+    context = {
+        'trainers': trainers,
+        'workout_plans': workout_plans,
+        'exercises': exercises,
+        'plan_treninga': plan_treninga,
+        'trenings': trenings,
+        'clanstva': clanstva,
+        'vjezbe': vjezbe,
+    }
+    return render(request, 'user_home.html', context)
+
+
 
 class GenericListView(ListView):
     template_name = 'generic_list.html'

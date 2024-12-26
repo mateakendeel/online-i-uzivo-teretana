@@ -7,6 +7,17 @@
         {% csrf_token %}
         <button type="submit">Logout</button>
     </form>
+
+    <h2>Manage Models:</h2>
+    <ul>
+        <li><a href="{% url 'generic_list' 'trainer' %}">Trainers</a></li>
+        <li><a href="{% url 'generic_list' 'workoutplan' %}">Workout Plans</a></li>
+        <li><a href="{% url 'generic_list' 'exercise' %}">Exercises</a></li>
+        <li><a href="{% url 'generic_list' 'plantreninga' %}">Plan Treninga</a></li>
+        <li><a href="{% url 'generic_list' 'trening' %}">Trenings</a></li>
+        <li><a href="{% url 'generic_list' 'clanstvo' %}">Memberships</a></li>
+        <li><a href="{% url 'generic_list' 'vjezba' %}">Vjezbas</a></li>
+    </ul>
     {% endblock %}
 </body>
 </html>
