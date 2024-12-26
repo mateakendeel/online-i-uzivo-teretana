@@ -28,6 +28,4 @@ urlpatterns = [
     path('admin-dashboard/', views.admin_dashboard, name='admin_dashboard'),
     path('', views.home, name='home'),
     path('user-home/', views.user_home, name='user_home'),
-    path('<str:model_name>/', GenericListView.as_view(), name='generic_list'),
-    path('<str:model_name>/<int:pk>/', GenericDetailView.as_view(), name='generic_detail'),
 ]
