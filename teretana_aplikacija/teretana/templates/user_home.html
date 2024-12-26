@@ -18,7 +18,10 @@
 
     <p><a href="{% url 'trening_list' %}">Pregled svih treninga</a></p> <!-- Dodajte ovdje -->
 
-    <a href="{% url 'logout' %}">Logout</a>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
     {% endblock %}
 </body>
 </html>
