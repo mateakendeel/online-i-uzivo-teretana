@@ -121,3 +121,121 @@ class GenericDetailView(DetailView):
             fields.append((field_name, field_value))
         context['fields'] = fields
         return context
+
+class GenericCreateView(CreateView):
+    template_name = 'generic_form.html'
+
+    def get_model(self):
+        model_name = self.kwargs.get('model')
+        model = {
+            'trainer': Trainer,
+            'workoutplan': WorkoutPlan,
+            'exercise': Exercise,
+            'plantreninga': PlanTreninga,
+            'trening': Trening,
+            'clanstvo': Clanstvo,
+            'vjezba': Vjezba,
+        }.get(model_name)
+        return model
+
+    def get_form_class(self):
+        model = self.get_model()
+        if model:
+            if model == Trainer:
+                fields = ['name', 'email']
+            elif model == WorkoutPlan:
+                fields = ['name', 'description']
+            elif model == Exercise:
+                fields = ['name', 'description']
+            elif model == PlanTreninga:
+                fields = ['workout_plan', 'exercise', 'repetitions', 'sets']
+            elif model == Trening:
+                fields = ['trainer', 'user', 'date']
+            elif model == Clanstvo:
+                fields = ['user', 'start_date', 'end_date', 'active']
+            elif model == Vjezba:
+                fields = ['name', 'description', 'duration', 'calories_burned']
+            return modelform_factory(model, fields=fields)
+
+    def get_success_url(self):
+        model_name = self.kwargs.get('model')
+        return reverse_lazy('generic_list', kwargs={'model': model_name})
+
+class GenericUpdateView(UpdateView):
+    template_name = 'generic_form.html'
+
+    def get_model(self):
+        model_name = self.kwargs.get('model')
+        model = {
+            'trainer': Trainer,
+            'workoutplan': WorkoutPlan,
+            'exercise': Exercise,
+            'plantreninga': PlanTreninga,
+            'trening': Trening,
+            'clanstvo': Clanstvo,
+            'vjezba': Vjezba,
+        }.get(model_name)
+        return model
+
+    def get_form_class(self):
+        model = self.get_model()
+        if model:
+            if model == Trainer:
+                fields = ['name', 'email']
+            elif model == WorkoutPlan:
+                fields = ['name', 'description']
+            elif model == Exercise:
+                fields = ['name', 'description']
+            elif model == PlanTreninga:
+                fields = ['workout_plan', 'exercise', 'repetitions', 'sets']
+            elif model == Trening:
+                fields = ['trainer', 'user', 'date']
+            elif model == Clanstvo:
+                fields = ['user', 'start_date', 'end_date', 'active']
+            elif model == Vjezba:
+                fields = ['name', 'description', 'duration', 'calories_burned']
+            return modelform_factory(model, fields=fields)
+
+    def get_queryset(self):
+        model = self.get_model()
+        if model:
+            return model.objects.all() 
+
+    def get_success_url(self):
+        model_name = self.kwargs.get('model')
+        return reverse_lazy('generic_detail', kwargs={'model': model_name, 'pk': self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['model_name'] = self.kwargs.get('model')
+        return context
+    
+class GenericDeleteView(DeleteView):
+    template_name = 'generic_confirm_delete.html'
+
+    def get_model(self):
+        model_name = self.kwargs.get('model')
+        model = {
+            'trainer': Trainer,
+            'workoutplan': WorkoutPlan,
+            'exercise': Exercise,
+            'plantreninga': PlanTreninga,
+            'trening': Trening,
+            'clanstvo': Clanstvo,
+            'vjezba': Vjezba,
+        }.get(model_name)
+        return model
+
+    def get_queryset(self):
+        model = self.get_model() 
+        if model:
+            return model.objects.all()  
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['model_name'] = self.kwargs.get('model')
+        return context
+
+    def get_success_url(self):
+        model_name = self.kwargs.get('model')
+        return reverse_lazy('generic_list', kwargs={'model': model_name})
