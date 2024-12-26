@@ -1,0 +1,78 @@
+[
+    {
+      "model": "teretana.trainer",
+      "pk": 1,
+      "fields": {
+        "name": "John Doe",
+        "email": "john.doe@example.com"
+      }
+    },
+
+    {
+      "model": "teretana.trainer",
+      "pk": 2,
+      "fields": {
+        "name": "Ana Ann",
+        "email": "ana.ann.doe@example.com"
+      }
+    },
+    {
+      "model": "teretana.workoutplan",
+      "pk": 1,
+      "fields": {
+        "name": "Basic Plan",
+        "description": "A simple workout plan for beginners."
+      }
+    },
+    {
+      "model": "teretana.exercise",
+      "pk": 1,
+      "fields": {
+        "name": "Push Up",
+        "description": "A basic upper body exercise."
+      }
+    },
+    {
+      "model": "teretana.plantreninga",
+      "pk": 1,
+      "fields": {
+        "name": "Morning Routine",
+        "workout_plan": 1,
+        "exercise": 1,
+        "repetitions": 10,
+        "sets": 3
+      }
+    },
+    {
+      "model": "teretana.trening",
+      "pk": 1,
+      "fields": {
+        "name": "Cardio Day",
+        "trainer": 1,
+        "user": 2,
+        "date": "2024-12-27T10:00:00Z"
+      }
+    },
+    {
+      "model": "teretana.clanstvo",
+      "pk": 1,
+      "fields": {
+        "name": "John's Membership",
+        "user": 2,
+        "start_date": "2024-01-01",
+        "end_date": "2024-12-31",
+        "active": true
+      }
+    },
+    {
+      "model": "teretana.vjezba",
+      "pk": 1,
+      "fields": {
+        "name": "Jogging",
+        "description": "A light running exercise.",
+        "duration": 30,
+        "calories_burned": 300
+      }
+    }
+  ]
+  

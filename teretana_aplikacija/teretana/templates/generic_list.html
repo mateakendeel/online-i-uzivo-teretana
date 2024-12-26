@@ -1,0 +1,23 @@
+<form method="get">
+    <input type="text" name="q" placeholder="Pretraži..." value="{{ request.GET.q }}">
+    <button type="submit">Pretraži</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ime</th>
+            <th>Detalji</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for object in objects %}
+            <tr>
+                <td>{{ object.id }}</td>
+                <td>{{ object.name }}</td>
+                <td><a href="{% url 'generic_detail' model=model_name pk=object.id %}">Detalji</a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
