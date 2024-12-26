@@ -2,11 +2,17 @@
 <html>
     <body>
         <h1>{{ object.name }}</h1>
+
         <ul>
             {% for field, value in fields %}
-                <li><strong>{{ field }}</strong>: {{ value }}</li>
+                <li><strong>{{ field|capfirst }}:</strong> {{ value }}</li>
             {% endfor %}
         </ul>
+
+        <a href="{% url 'generic_update' model=model_name pk=object.id %}">Ažuriraj</a>
+
+        <a href="{% url 'generic_delete' model=model_name pk=object.id %}">Obriši</a>
+
         <a href="{% url 'generic_list' model=model_name %}">Povratak na popis</a>
     </body>
 </html>

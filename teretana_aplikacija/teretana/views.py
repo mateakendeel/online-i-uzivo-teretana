@@ -9,6 +9,7 @@ from django.db.models import Q
 from .models import Trainer, WorkoutPlan, Exercise, PlanTreninga, Trening, Clanstvo, Vjezba
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
+from django.forms import modelform_factory
 
 def register(request):
     if request.method == 'POST':
@@ -110,5 +111,13 @@ class GenericDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         model_name = self.kwargs.get('model')
-        context['model_name'] = model_name  
+        context['model_name'] = model_name
+
+        object = context['object']
+        fields = []
+        for field in object._meta.fields:
+            field_name = field.name
+            field_value = getattr(object, field_name)
+            fields.append((field_name, field_value))
+        context['fields'] = fields
         return context

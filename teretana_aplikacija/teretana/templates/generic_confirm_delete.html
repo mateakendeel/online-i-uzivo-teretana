@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Jeste li sigurni da želite obrisati {{ object.name }}?</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Obriši</button>
+</form>
+<a href="{% url 'generic_list' model=model_name %}">Povratak na popis</a>
+
+    </body>
+</html>
